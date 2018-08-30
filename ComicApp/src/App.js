@@ -13,12 +13,26 @@ import {
 } from 'react-native';
 import ComicListItem from './ComicListItem'
 import ComicListScreen from './ComicListScreen';
+import { createStackNavigator } from 'react-navigation'
+import ComicDetail from './ComicDetail'
+
+const Navigation = createStackNavigator({
+  ComicList: {
+    screen: ComicListScreen,
+    navigationOptions: ({navigation}) => (
+      {title: 'Comics'}
+    )
+  },
+  ComicDetail: {
+    screen: ComicDetail
+  }
+})
 
 class App extends Component {
   state = {  }
   render() {
     return (
-      <ComicListScreen/>
+      <Navigation/>
     );
   }
 }

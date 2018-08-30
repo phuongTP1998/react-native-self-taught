@@ -4,6 +4,7 @@ import {
     View,
     FlatList
 } from 'react-native';
+import Orientation from 'react-native-orientation'
 
 import { data } from './database.json'
 import ComicListItem from './ComicListItem';
@@ -11,13 +12,14 @@ import ComicListItem from './ComicListItem';
 class ComicListScreen extends Component {
     state = {}
 
-    renderItem = ({ item }) => <ComicListItem />
+    renderItem = ({ item }) => <ComicListItem comic={item}/>
 
     keyExtractor = (item, index) => item.id
 
     render() {
+        Orientation.lockToPortrait()
         return (
-            <FlatList
+            <FlatList 
                 data={data}
                 renderItem={this.renderItem}
                 numColumns='2'
