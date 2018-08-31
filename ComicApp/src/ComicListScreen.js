@@ -12,14 +12,15 @@ import ComicListItem from './ComicListItem';
 class ComicListScreen extends Component {
     state = {}
 
-    renderItem = ({ item }) => <ComicListItem comic={item}/>
+    renderItem = ({ item }) => <ComicListItem comic={item}
+        navigation={this.props.navigation} />
 
     keyExtractor = (item, index) => item.id
 
     render() {
         Orientation.lockToPortrait()
         return (
-            <FlatList 
+            <FlatList
                 data={data}
                 renderItem={this.renderItem}
                 numColumns='2'
