@@ -6,10 +6,17 @@ import {
   Image,
   Dimensions
 } from 'react-native';
+
 import ScaledImage from './ScaledImage';
 
 class ComicDetail extends Component {
   state = {}
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.state.params.comic.title
+    }
+  }
 
   render() {
     return (
