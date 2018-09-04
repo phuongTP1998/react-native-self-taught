@@ -22,6 +22,9 @@ class ComicListScreen extends Component {
     }
 
     loadComicByCategory = (category) => {
+        category === 'Tất cả'
+        ? axios.get(`https://api.techkids.vn/reactnative/api/comics`)
+        .then(res => this.setState({data: res.data.comics}))
         axios.get(`https://api.techkids.vn/reactnative/api/comics?category=${category}`)
             .then(res => this.setState({data: res.data.comics.comics}))
     }
