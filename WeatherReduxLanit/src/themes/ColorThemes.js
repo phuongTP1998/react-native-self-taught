@@ -1,0 +1,7 @@
+const ColorThemeDay = {
+
+}
+
+const ColorThemeNight = {
+    
+}
