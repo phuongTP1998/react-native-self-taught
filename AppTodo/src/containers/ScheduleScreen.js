@@ -1,0 +1,46 @@
+import React, { Component } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  SectionList
+} from 'react-native';
+import CalendarStrip from 'react-native-calendar-strip'
+
+import {
+  white, calendarBackground, calendarHighlight,
+  commonStyles
+} from '../styles/styles';
+import ItemDate from '../components/ItemDate';
+import ItemTask from '../components/ItemTask';
+import { data } from '../data/database.json'
+
+class ScheduleScreen extends Component {
+  state = {
+  }
+
+  renderItem = ({ item, section }) => <ItemTask task={item} dayId = {section.id}/>
+
+  renderSectionHeader = ({ section: { date } }) => <ItemDate date={date} />
+
+  render() {
+    return (
+      <View style={commonStyles.container}>
+        <CalendarStrip
+          style={commonStyles.calendar}
+          calendarColor={calendarBackground}
+          highlightDateNumberStyle={{ color: calendarHighlight }}
+          highlightDateNameStyle={{ color: calendarHighlight }}
+        />
+        <SectionList
+          renderItem={this.renderItem}
+          renderSectionHeader={this.renderSectionHeader}
+          sections={data}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    );
+  }
+}
+
+export default ScheduleScreen;

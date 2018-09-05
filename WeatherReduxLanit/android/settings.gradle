@@ -1,0 +1,3 @@
+rootProject.name = 'WeatherReduxLanit'
+
+include ':app'
