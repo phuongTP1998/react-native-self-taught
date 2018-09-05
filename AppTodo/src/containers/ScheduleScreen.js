@@ -14,12 +14,14 @@ import {
 import ItemDate from '../components/ItemDate';
 import ItemTask from '../components/ItemTask';
 import { data } from '../data/database.json'
+import { connect } from 'react-redux'
+
 
 class ScheduleScreen extends Component {
   state = {
   }
 
-  renderItem = ({ item, section }) => <ItemTask task={item} dayId = {section.id}/>
+  renderItem = ({ item }) => <ItemTask task={item} />
 
   renderSectionHeader = ({ section: { date } }) => <ItemDate date={date} />
 
@@ -35,7 +37,7 @@ class ScheduleScreen extends Component {
         <SectionList
           renderItem={this.renderItem}
           renderSectionHeader={this.renderSectionHeader}
-          sections={data}
+          sections={this.props.tasks}
           keyExtractor={(item) => item.id}
         />
       </View>
@@ -43,4 +45,6 @@ class ScheduleScreen extends Component {
   }
 }
 
-export default ScheduleScreen;
+const mapStateToProps = ({ tasks }) => ({ tasks })
+
+export default connect(mapStateToProps)(ScheduleScreen);

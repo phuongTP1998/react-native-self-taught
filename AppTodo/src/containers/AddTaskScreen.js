@@ -6,11 +6,13 @@ import {
 
 import CalendarStrip from 'react-native-calendar-strip';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { connect } from 'react-redux'
 
 import { white, gray, calendarHighlight, commonStyles, calendarBackground } from '../styles/styles'
 import ItemDate from '../components/ItemDate'
 import { getDateStringFromDate } from '../utils'
 import ChooseCategory from '../components/ChooseCategory'
+import { addTask } from '../actions'
 
 class AddTaskScreen extends Component {
   state = {
@@ -18,7 +20,27 @@ class AddTaskScreen extends Component {
     isTimePickerVisible: false,
     time: new Date().toTimeString().substring(0, 5)
   }
-   onDateSelected = (date) => {
+
+  componentDidMount() {
+    this.props.navigation.setParams({ addTask: this.handleAddTask })
+  }
+
+  handleAddTask = () => {
+    this.props.addTask({
+      id: 1234,
+      date: 'Junvu2vn',
+      task: {
+        id: 12345,
+        category: 'To do',
+        content: 'abc',
+        time: '09:00',
+        completed: false
+      }
+    })
+    this.props.navigation.navigate('Schedule')
+  }
+
+  onDateSelected = (date) => {
     //log date ra de xem cau truc
     this.setState({
       selectedDate: getDateStringFromDate(date._d)
@@ -57,7 +79,7 @@ class AddTaskScreen extends Component {
           onConfirm={this.handleTimePicked}
           onCancel={this.hideTimePicker}
           mode='time' />
-        <Text style={styles.title}>Category</Text>  
+        <Text style={styles.title}>Category</Text>
         <ChooseCategory />
       </View>
     );
@@ -93,4 +115,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddTaskScreen;   
+export default connect(null, { addTask })(AddTaskScreen);   

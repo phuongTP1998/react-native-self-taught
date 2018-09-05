@@ -50,7 +50,7 @@ const Navigation = createStackNavigator({
         </TouchableOpacity>,
       headerRight:
         <TouchableOpacity
-          onPress={() => navigation.navigate('Schedule')}>
+          onPress={navigation.getParam('addTask')}>
           <Text style={{
             marginEnd: 10,
             fontWeight: 'bold',
