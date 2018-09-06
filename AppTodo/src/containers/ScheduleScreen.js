@@ -16,15 +16,27 @@ import ItemTask from '../components/ItemTask';
 import { data } from '../data/database.json'
 import { connect } from 'react-redux'
 
+const listRef = 'listRef'
 
 class ScheduleScreen extends Component {
   state = {
-    
+
   }
 
   renderItem = ({ item, section }) => <ItemTask task={item} dayId={section.id} />
 
   renderSectionHeader = ({ section: { date } }) => <ItemDate date={date} />
+
+  onDateSelected = (date) => {
+    const index = 
+  }
+
+  scrollSectionList = (index) => {
+    this.refs.listRef.scrollToLocation({
+      sectionIndex: index,
+      itemIndex: 0
+    })
+  }
 
   render() {
     return (
@@ -34,12 +46,14 @@ class ScheduleScreen extends Component {
           calendarColor={calendarBackground}
           highlightDateNumberStyle={{ color: calendarHighlight }}
           highlightDateNameStyle={{ color: calendarHighlight }}
+          onDateSelected={this.onDateSelected}
         />
         <SectionList
           renderItem={this.renderItem}
           renderSectionHeader={this.renderSectionHeader}
           sections={this.props.tasks}
           keyExtractor={(item) => item.id}
+          ref={listRef}
         />
       </View>
     );

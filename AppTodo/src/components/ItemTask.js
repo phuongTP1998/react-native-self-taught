@@ -9,21 +9,28 @@ import {
 import RoundCheckbox from 'rn-round-checkbox';
 import { chooseColorByCategory } from '../utils'
 import { gray, categoryBirthday, white, calendarHighlight } from '../styles/styles'
-import { toogleTask } from '../actions'
+import { toogleTask, delTask } from '../actions'
 import { connect } from 'react-redux'
 
 class ItemTask extends Component {
   state = {
-    taskDone: false
+    taskDone: this.props.task.completed
   }
 
   toogleTask = newValue => {
     this.setState({ taskDone: newValue }),
-    this.props.toogleTask({
-      dayId: this.props.dayId,
+      this.props.toogleTask({
+        dayId: this.props.dayId,
+        timeId: this.props.task.id
+      })
+  }
+
+  delTask = () => {
+    this.props.delTask({
+      id: this.props.dayId,
       timeId: this.props.task.id
     })
-}
+  }
 
   render() {
     return (
@@ -34,7 +41,11 @@ class ItemTask extends Component {
           backgroundColor={calendarHighlight}
         />
         <Text style={styles.time}>{this.props.task.time}</Text>
-        <TouchableOpacity style={[{ backgroundColor: chooseColorByCategory(this.props.task.category) }, styles.task]}>
+        <TouchableOpacity
+          onLongPress={this.delTask}
+          style={[{ backgroundColor: chooseColorByCategory(this.props.task.category) },
+          styles.task]}
+        >
           <Text style={styles.content}>{this.props.task.content}</Text>
           <Text style={styles.category}>{this.props.task.category}</Text>
         </TouchableOpacity>
@@ -74,4 +85,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(null, { toogleTask })(ItemTask);
+export default connect(null, { toogleTask, delTask })(ItemTask);

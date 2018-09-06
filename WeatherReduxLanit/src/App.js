@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import rootReducer from './redux/reducers';
 import RootNavigator from './navigators'
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 class App extends Component {
     state = {}

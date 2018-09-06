@@ -31,7 +31,7 @@ const getDataWeatherSuccess = data => {
     return dispatch => {
       dispatch(getDataWeather());
   
-      Axios.get(URL_WEATHER + lat.toFixed(2) + '/' + lon.toFixed(2))
+      Axios.get(URL_WEATHER + lat + '/' + lon)
         .then(response => {
           console.log(response);
           dispatch(getDataWeatherSuccess(response.data));
@@ -43,8 +43,4 @@ const getDataWeatherSuccess = data => {
     };
   };
   
-  export {
-    getDataWeather,
-    getDataWeatherFail,
-    fetchDataGetDataWeather
-  };
+  export { fetchDataGetDataWeather as default };
