@@ -2,6 +2,8 @@ import React, { PureComponent } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import fetchDataGetDataWeather from "../../redux/actions/getWeatherDataAction";
+import styles from './style'
+import WeatherToday from '../../components/WeatherToday'
 
 class Home extends PureComponent {
   state = {};
@@ -14,16 +16,19 @@ class Home extends PureComponent {
     if (!this.props.dataR.dataSuccess) {
       console.log("is fetching")
       return (
-        <View>
-          <Text> is fetching </Text>
+        <View style = {styles.container}>
+            <View style = {styles.containerWeatherToday}/>
+            <View style = {styles.containerListForecase}/>
         </View>
       );
     } else {
       console.log(this.props.dataR);
       return (
-        <View>
-          <Text> Home </Text>
-          {/* {this.props.dataR} */}
+        <View style = {styles.container}>
+            <View style = {styles.containerWeatherToday}>
+                <WeatherToday dataR={this.props.dataR}/>
+            </View>
+            <View style = {styles.containerListForecase}/>
         </View>
       );
     }

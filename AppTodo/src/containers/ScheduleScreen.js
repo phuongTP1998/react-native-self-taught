@@ -15,6 +15,7 @@ import ItemDate from '../components/ItemDate';
 import ItemTask from '../components/ItemTask';
 import { data } from '../data/database.json'
 import { connect } from 'react-redux'
+import { getDateStringFromDate } from '../utils';
 
 const listRef = 'listRef'
 
@@ -25,16 +26,19 @@ class ScheduleScreen extends Component {
 
   renderItem = ({ item, section }) => <ItemTask task={item} dayId={section.id} />
 
-  renderSectionHeader = ({ section: { date } }) => <ItemDate date={date} />
+  renderSectionHeader = ({ section}) => section.data.length !== 0 && <ItemDate date={section.date} />
 
   onDateSelected = (date) => {
-    const index = 
+    const index = this.props.tasks.map(dayTasks => dayTasks.date)
+      .indexOf(getDateStringFromDate(date._d))
+    index !== -1 && this.scrollSectionList(index)
   }
 
   scrollSectionList = (index) => {
     this.refs.listRef.scrollToLocation({
       sectionIndex: index,
-      itemIndex: 0
+      itemIndex: 0,
+      viewOffset: 40
     })
   }
 

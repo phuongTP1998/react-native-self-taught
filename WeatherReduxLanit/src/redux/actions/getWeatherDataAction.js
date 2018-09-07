@@ -33,7 +33,6 @@ const getDataWeatherSuccess = data => {
   
       Axios.get(URL_WEATHER + lat + '/' + lon)
         .then(response => {
-          console.log(response);
           dispatch(getDataWeatherSuccess(response.data));
         })
         .catch(error => {

@@ -19,9 +19,9 @@ const getIconName = id => {
     }
     if (id >= 800 && id <= 809) {
       return 'cloud';
-    }
-    return 'clound';
+    } 
+    return 'cloud';
   };
   
-  export { getIconName };
+  export { getIconName as default };
   
