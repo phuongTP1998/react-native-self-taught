@@ -1,3 +1,6 @@
 export const GET_WEATHER_ING = 'GET_WEATHER_ING';
 export const GET_WEATHER_SUCCESS = 'GET_WEATHER_SUCCESS';
 export const GET_WEATHER_FAIL = 'GET_WEATHER_FAIL';
+
+export const CHANGE_TEMP_C = 'CHANGE_TEMP_C';
+export const CHANGE_TEMP_F = 'CHANGE_TEMP_F'

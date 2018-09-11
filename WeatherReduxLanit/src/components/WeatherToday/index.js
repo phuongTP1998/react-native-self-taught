@@ -4,6 +4,7 @@ import styles from "./styles";
 import TempCF from "../../utilities/ConvertTempCF";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import getIconName from "../../utilities/WeatherIcon";
+import { getTimeFromNow, convertTime, convertTimeShort } from '../../utilities/MomentTime'
 
 class WeatherToday extends Component {
   state = {};

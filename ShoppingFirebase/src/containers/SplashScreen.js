@@ -7,9 +7,18 @@ import {
 
 import { backgroundColor } from '../styles'
 
+import firebase from 'react-native-firebase'
+
 
 class SplashScreen extends Component {
     state = {}
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged( res => res !== null
+        ? setTimeout(() => this.props.navigation.navigate('HomeScreen'),1000)
+        : setTimeout(() => this.props.navigation.navigate('LoginScreen'),1000))
+    }
+
     render() {
         return (
             <View style={styles.container}>

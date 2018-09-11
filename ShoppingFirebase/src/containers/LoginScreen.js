@@ -4,7 +4,7 @@ import {
   , Platform, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator
 } from "react-native";
 import firebase from "react-native-firebase";
-import { backgroundColor, primaryColorBrown, primaryColorRed, primaryColorGreen } from "../styles";
+import { backgroundColor, primaryColorBrown, primaryColorRed, primaryColorGreen, commonStyles } from "../styles";
 
 class LoginScreen extends Component {
   state = {
@@ -75,14 +75,14 @@ class LoginScreen extends Component {
         <Text style={styles.textError}>{this.state.error}</Text>
         <View style={[styles.row, { justifyContent: 'center' }]}>
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: primaryColorGreen }]}
+            style={[commonStyles.button, { backgroundColor: primaryColorGreen }]}
             onPress={this.onSignUp}>{
               this.state.isSigningUp === true
                 ? <ActivityIndicator size='small' color='white'/> 
                 : <Text style={{ color: 'white' }}>Sign Up</Text>
             }
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, { backgroundColor: primaryColorRed }]}
+          <TouchableOpacity style={[commonStyles.button, { backgroundColor: primaryColorRed }]}
           onPress={this.onSignIn}>{
             this.state.isSigningIn === true
               ? <ActivityIndicator size='small' color='white'/> 

@@ -4,11 +4,20 @@ import {
   View,
 } from 'react-native';
 
+import DishItem from '../components/DishItem'
+import { commonStyles } from '../styles'
+
 class TabMenu extends Component {
   state = {  }
   render() {
     return (
-        <Text>Menu</Text>
+        <View style={commonStyles.container}>
+            <FlatList
+              data={['Hamburget','Pizza','Spaghetti','Salad','Drink','Snack']}
+              keyExtractor={(item) => item.key }
+              renderItem ={this.renderCategory}
+            />
+        </View>
     );
   }
 }

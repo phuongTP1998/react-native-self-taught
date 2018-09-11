@@ -13,26 +13,30 @@ import Home from "../container/home";
 import {ColorThemes, Images} from "../themes"
 
 const RootNavigator = createStackNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: ({ navigation }) => ({
-      title: '',
-      headerLeft: 
-        <TouchableOpacity>
-          <Image 
-          style = {styles.textHeaderLeft}
-          source = {Images.back}/>
-        </TouchableOpacity>
-      ,
-      headerRight: 
-        <TouchableOpacity >
-          <Text style = {styles.textHeaderRight} >˚C</Text>
-        </TouchableOpacity>,
-        headerStyle: {
-          backgroundColor: ColorThemes.background
-        }
-    })
-  }}
-);
+ Home: {
+   screen: Home
+ } 
+}, {
+  initialRouteName : "Home",
+  headerMode: 'none'
+});
 
 export default RootNavigator;
+
+// navigationOptions: ({ navigation }) => ({
+    //   title: '',
+    //   headerLeft: 
+    //     <TouchableOpacity>
+    //       <Image 
+    //       style = {styles.textHeaderLeft}
+    //       source = {Images.back}/>
+    //     </TouchableOpacity>
+    //   ,
+    //   headerRight: 
+    //     <TouchableOpacity>
+    //       <Text style = {styles.textHeaderRight}>°C</Text>
+    //     </TouchableOpacity>,
+    //     headerStyle: {
+    //       backgroundColor: ColorThemes.background
+    //     }
+    // })
