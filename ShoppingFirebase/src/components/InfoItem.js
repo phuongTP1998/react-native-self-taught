@@ -20,6 +20,10 @@ class InfoItem extends Component {
             .set(this.state.content)
     }
 
+    componentWillReceiveProps(newProps) {
+        this.setState({ content: newProps.content })
+      }
+
     render() {
         return (
             <View style={{ flexDirection: 'row', marginVertical: 5 }}>

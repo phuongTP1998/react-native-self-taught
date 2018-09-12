@@ -4,19 +4,31 @@ import {
   View,
 } from 'react-native';
 
-import {commonStyles} from '../styles'
+import { commonStyles } from '../styles'
 import InfoItem from '../components/InfoItem';
+import firebase from 'react-native-firebase'
 
 class TabInfo extends Component {
-  state = {  }
+  state = {}
+
+  componentDidMount() {
+    firebase.database().ref('/users')
+      .child(firebase.auth().currentUser.uid) 
+      .once('value', res => this.setState({
+        address: res._value.address,
+        displayName: res._value.displayName,
+        phoneNumber: res._value.phoneNumber
+      }))
+  }
+
   render() {
     return (
-        <View style={commonStyles.container}>
-          <Text style={commonStyles.fontTitleScreen}>Information</Text>
-          <InfoItem iconName='location-arrow' content='' type='address'/>
-          <InfoItem iconName='user' content='' type='displayName'/>
-          <InfoItem iconName='phone' content='' type='phoneNumber'/>
-        </View>
+      <View style={commonStyles.container}>
+        <Text style={commonStyles.fontTitleScreen}>Information</Text>
+        <InfoItem iconName='location-arrow' content={this.state.address} type='address' />
+        <InfoItem iconName='user' content={this.state.displayName} type='displayName' />
+        <InfoItem iconName='phone' content={this.state.phoneNumber} type='phoneNumber' />
+      </View>
     );
   }
 }
