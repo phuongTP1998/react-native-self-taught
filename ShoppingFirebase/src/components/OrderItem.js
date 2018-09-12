@@ -21,18 +21,18 @@ class OrderItem extends Component {
                     color: primaryColorBrown,
                     fontSize: 18,
                     marginHorizontal: 16
-                }}>1</Text>
+                }}>{this.props.item.amount}</Text>
                 <Text style={{
                     color: primaryColorBrown,
                     marginHorizontal: 16,
                     flex: 1
-                }}>Hamburger</Text>
+                }}>{this.props.item.dish}</Text>
                 <Text style={{
                     fontWeight: 'bold',
                     color: primaryColorGreen,
                     fontSize: 18,
                     marginLeft: 8
-                }}>50$</Text>
+                }}>{`${this.props.item.unitPrice}$`}</Text>
             </View>
         );
     }

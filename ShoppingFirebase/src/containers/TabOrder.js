@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View, TouchableOpacity
+  View, TouchableOpacity, FlatList
 } from 'react-native';
+import { connect } from 'react-redux'
 
 import { commonStyles, primaryColorBrown, primaryColorRed } from '../styles'
 import OrderItem from '../components/OrderItem';
 
 class TabOrder extends Component {
-  state = {}
+
+  renderItem = ({ item }) => <OrderItem item={item} />
+
   render() {
+    const totalPrice = (this.props.orders.length === 0)
+      ? 0
+      : this.props.orders.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.unitPrice * currentValue.amount, 0
+      )
+
     return (
       <View style={commonStyles.container}>
         <Text style={commonStyles.fontTitleScreen}>Order</Text>
-        <OrderItem />
+        <FlatList
+          style={{ flexGrow: 0 }}
+          data={this.props.orders}
+          keyExtractor={(item) => item.key.toString()}
+          renderItem={this.renderItem}
+        />
         <View style={{
           marginHorizontal: 7,
           borderColor: primaryColorBrown,
@@ -34,7 +48,7 @@ class TabOrder extends Component {
             fontWeight: 'bold',
             fontSize: 20,
             color: primaryColorRed
-          }}>$100</Text>
+          }}>{`${totalPrice}$`}</Text>
         </View>
         <TouchableOpacity style={[commonStyles.button, {
           backgroundColor: primaryColorRed,
@@ -52,4 +66,6 @@ class TabOrder extends Component {
   }
 }
 
-export default TabOrder;
+const mapStateToProps = ({ orders }) => ({ orders })
+
+export default connect(mapStateToProps)(TabOrder);

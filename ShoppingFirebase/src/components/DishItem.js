@@ -4,10 +4,17 @@ import {
     View, StyleSheet, Image, TouchableOpacity
 } from 'react-native';
 
+import { connect } from 'react-redux'
+import { addOrder } from '../actions'
 import { commonStyles, primaryColorBrown, primaryColorRed } from '../styles'
 
 class DishItem extends Component {
     state = {}
+
+    addToCart = () => {
+        this.props.addOrder(this.props.dish)
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -17,9 +24,10 @@ class DishItem extends Component {
                 <Text style={styles.name} numberOfLines={1}>{this.props.dish.name}</Text>
                 <Text style={styles.price}>{`${this.props.dish.price}$`}</Text>
                 <TouchableOpacity
-                    style={[commonStyles.button, { backgroundColor: primaryColorRed, marginTop: 10 }]}>
-                    <Text style={{color: 'white'}}>Add to cart</Text>
-                    </TouchableOpacity>
+                    style={[commonStyles.button, { backgroundColor: primaryColorRed, marginTop: 10 }]}
+                    onPress={this.addToCart}>
+                    <Text style={{ color: 'white' }}>Add to cart</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -52,4 +60,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DishItem;
+export default connect(null, { addOrder })(DishItem);

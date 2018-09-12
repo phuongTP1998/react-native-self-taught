@@ -16,6 +16,12 @@ import TabOrder from './TabOrder';
 import TabHistory from './TabHistory';
 import TabInfo from './TabInfo';
 
+import { PersistGate } from 'redux-persist/integration/react'
+import { Provider } from 'react-redux'
+import configureStore from '../configureStore'
+
+const configure = configureStore()
+
 const BottomNavigation = createBottomTabNavigator({
   Menu: TabMenu,
   Order: TabOrder,
@@ -76,7 +82,11 @@ class App extends Component {
   state = {}
   render() {
     return (
-      <SwitchNavigation />
+      <Provider store={configure.store}>
+        <PersistGate loading={null} persistor={configure.persistor}>
+          <SwitchNavigation />
+        </PersistGate>
+      </Provider>
     );
   }
 }
