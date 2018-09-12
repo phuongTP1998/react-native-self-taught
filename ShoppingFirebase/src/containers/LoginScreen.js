@@ -12,17 +12,31 @@ class LoginScreen extends Component {
     isSigningUp: false
   };
 
+  onPushDataToFirebase = (user) => {
+    firebase.database().ref('/users').child(user.uid).set({
+      displayName: '',
+      phoneNumber: '',
+      address: ''
+    })
+  }
+
   onSignUp = () => {
     this.setState({ isSigningUp: true })
     const email = this.state.email
     const password = this.state.password
 
     firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(email, password)
-      .then(res => this.setState({ isSigningUp: false }))
-      .catch(err => 
-        this.setState({error: err.toString(), 
+      .then(res => {
+        this.setState({ isSigningUp: false })
+        this.onPushDataToFirebase(res.user._user)
+        this.props.navigation.navigate('HomeScreen')
+      })
+      .catch(err =>
+        this.setState({
+          error: err.toString(),
           password: '',
-        isSigningUp: false})
+          isSigningUp: false
+        })
       )
   }
 
@@ -32,11 +46,16 @@ class LoginScreen extends Component {
     const password = this.state.password
 
     firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-      .then(res => this.setState({ isSigningIn: false }))
-      .catch(err => 
-        this.setState({error: err.toString(), 
+      .then(res => {
+        this.setState({ isSigningIn: false })
+        this.props.navigation.navigate('HomeScreen')
+      })
+      .catch(err =>
+        this.setState({
+          error: err.toString(),
           password: '',
-        isSigningIn: false})
+          isSigningIn: false
+        })
       )
   }
 
@@ -78,16 +97,16 @@ class LoginScreen extends Component {
             style={[commonStyles.button, { backgroundColor: primaryColorGreen }]}
             onPress={this.onSignUp}>{
               this.state.isSigningUp === true
-                ? <ActivityIndicator size='small' color='white'/> 
+                ? <ActivityIndicator size='small' color='white' />
                 : <Text style={{ color: 'white' }}>Sign Up</Text>
             }
           </TouchableOpacity>
           <TouchableOpacity style={[commonStyles.button, { backgroundColor: primaryColorRed }]}
-          onPress={this.onSignIn}>{
-            this.state.isSigningIn === true
-              ? <ActivityIndicator size='small' color='white'/> 
-              : <Text style={{ color: 'white' }}>Sign In</Text>
-          }
+            onPress={this.onSignIn}>{
+              this.state.isSigningIn === true
+                ? <ActivityIndicator size='small' color='white' />
+                : <Text style={{ color: 'white' }}>Sign In</Text>
+            }
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

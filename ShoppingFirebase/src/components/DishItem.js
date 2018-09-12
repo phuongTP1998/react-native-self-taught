@@ -13,9 +13,9 @@ class DishItem extends Component {
             <View style={styles.container}>
                 <Image
                     style={styles.image}
-                    source={{ uri: 'https://i.pinimg.com/564x/1e/83/02/1e8302e826a48c3ac3190c4a35d6237a.jpg' }} />
-                <Text style={styles.name} numberOfLines={1}>Watermelon breeze</Text>
-                <Text style={styles.price}>14$</Text>
+                    source={{ uri: this.props.dish.image }} />
+                <Text style={styles.name} numberOfLines={1}>{this.props.dish.name}</Text>
+                <Text style={styles.price}>{`${this.props.dish.price}$`}</Text>
                 <TouchableOpacity
                     style={[commonStyles.button, { backgroundColor: primaryColorRed, marginTop: 10 }]}>
                     <Text style={{color: 'white'}}>Add to cart</Text>

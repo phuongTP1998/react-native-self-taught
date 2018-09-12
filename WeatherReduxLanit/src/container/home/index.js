@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { connect } from "react-redux";
 import fetchDataGetDataWeather from "../../redux/actions/getWeatherDataAction";
+import { changeTempToC, changeTempToF } from '../../redux/actions/changeTempAction'
 import styles from './style'
 import WeatherToday from '../../components/WeatherToday'
 import WeatherForecaseItem from '../../components/WeatherForecaseItem'
@@ -40,10 +41,15 @@ class Home extends PureComponent {
       return (
         <View style={styles.container}>
           <View style={styles.containerWeatherToday}>
-            <TouchableOpacity style={{height: 50}}>
+            <TouchableOpacity
+              style={{ height: 50 }}
+              onPress={() => {
+                this.props.changeTempToC(),
+                this.setState.tempC = true
+              }}>
               <Text style={styles.textHeaderRight}>°C</Text>
             </TouchableOpacity>
-            <WeatherToday dataR={this.props.dataR}/>
+            <WeatherToday dataR={this.props.dataR} />
           </View>
           <View style={styles.containerListForecase}>
             <FlatList
@@ -59,12 +65,15 @@ class Home extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  dataR: state.getWeatherReducers
+  dataR: state.getWeatherReducers,
+  tempType: state.changeTempReducers
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchDataGetDataWeather: (lat, lon) =>
-    dispatch(fetchDataGetDataWeather(lat, lon))
+    dispatch(fetchDataGetDataWeather(lat, lon)),
+  changeTempToC: () => dispatch(changeTempToC()),
+  changeTempToF: () => dispatch(changeTempToF())
 });
 
 export default connect(

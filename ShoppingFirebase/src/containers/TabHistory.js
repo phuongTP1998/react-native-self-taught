@@ -4,11 +4,15 @@ import {
   View,
 } from 'react-native';
 
+import { commonStyles } from '../styles'
+
 class TabHistory extends Component {
   state = {  }
   render() {
     return (
-        <Text>History</Text>
+        <View style={commonStyles.container}>
+            <Text style={commonStyles.fontTitleScreen}>History</Text>
+        </View>
     );
   }
 }

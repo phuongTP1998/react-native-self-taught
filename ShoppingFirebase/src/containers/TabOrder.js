@@ -4,11 +4,15 @@ import {
   View,
 } from 'react-native';
 
+import { commonStyles } from '../styles'
+
 class TabOrder extends Component {
   state = {  }
   render() {
     return (
-        <Text>Order</Text>
+        <View style={commonStyles.container}>
+            <Text style={commonStyles.fontTitleScreen}>Order</Text>
+        </View>
     );
   }
 }

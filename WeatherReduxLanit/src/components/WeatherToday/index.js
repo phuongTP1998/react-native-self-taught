@@ -12,7 +12,7 @@ class WeatherToday extends Component {
   dataWeather = this.props.dataR.data;
 
   _getIconName = getIconName(this.dataWeather.list[0].weather[0].id);
-  _changeTemp = TempCF(this.dataWeather.list[0].main.temp_min, "f");
+  _changeTemp = TempCF(this.dataWeather.list[0].main.temp_min, "°F");
 
   render() {
     return (

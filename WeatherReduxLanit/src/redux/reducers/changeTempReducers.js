@@ -4,7 +4,7 @@ import {
 } from '../constants/actionTypes'
 
 const INIT_STATE = {
-    temp: 'f'
+    temp: '°F'
 }
 
 export default (state = INIT_STATE, action) => {
@@ -12,12 +12,12 @@ export default (state = INIT_STATE, action) => {
         case CHANGE_TEMP_C:
             return {
                 ...state,
-                temp: 'c'
+                temp: '°C'
             }
         case CHANGE_TEMP_F:
             return {
                 ...state,
-                temp: 'f'
+                temp: '°F'
             }
         default:
             return state
