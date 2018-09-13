@@ -1,4 +1,4 @@
-import { ADD_ORDER } from '../actions/type'
+import { ADD_ORDER, DEL_ORDER, CLEAR_ORDER } from '../actions/type'
 
 export default function (state = [], action) {
     switch (action.type) {
@@ -19,6 +19,13 @@ export default function (state = [], action) {
                     }
                     : order)
             }
+
+        case DEL_ORDER:
+            return state.filter(order => order.key !== action.payload)
+
+        case CLEAR_ORDER:
+            return []
+
         default:
             return state;
     }

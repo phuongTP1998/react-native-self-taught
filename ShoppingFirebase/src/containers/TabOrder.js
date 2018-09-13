@@ -7,10 +7,40 @@ import { connect } from 'react-redux'
 
 import { commonStyles, primaryColorBrown, primaryColorRed } from '../styles'
 import OrderItem from '../components/OrderItem';
+import firebase from 'react-native-firebase'
+import { clearOrder } from '../actions'
 
 class TabOrder extends Component {
 
   renderItem = ({ item }) => <OrderItem item={item} />
+
+  confirmOrder = () => {
+    if (this.props.orders.length === 0) return ;
+
+    const dbRef = firebase.database().ref('/users')
+      .child(firebase.auth().currentUser.uid)
+      .child('history')
+
+    //1. get array history from firebase
+    dbRef.once('value', res => {
+      //2. add order to array 
+      const currentTime = new Date().toString()
+      const currentOrder = {
+        onGoing: true,
+        orders: this.props.orders,
+        date: currentTime.substring(0, currentTime.indexOf('GMT'))
+      }
+      //3. push array to firebase
+      res._value !== null
+        ? dbRef.set([...res._value, currentOrder]).then(this.confirmSuccessful)
+        : dbRef.set([currentOrder]).then(this.confirmSuccessful)
+    })
+  }
+
+  confirmSuccessful = () => {
+    this.props.clearOrder()
+    this.props.navigation.navigate('History')
+  } 
 
   render() {
     const totalPrice = (this.props.orders.length === 0)
@@ -51,11 +81,14 @@ class TabOrder extends Component {
           }}>{`${totalPrice}$`}</Text>
         </View>
         <TouchableOpacity style={[commonStyles.button, {
-          backgroundColor: primaryColorRed,
+          backgroundColor: this.props.orders.length !== 0
+            ? primaryColorRed
+            : 'gray',
           position: 'absolute',
           bottom: 16,
           alignSelf: 'center'
-        }]}>
+        }]}
+          onPress={this.confirmOrder}>
           <Text style={{
             color: 'white',
             fontWeight: 'bold'
@@ -68,4 +101,4 @@ class TabOrder extends Component {
 
 const mapStateToProps = ({ orders }) => ({ orders })
 
-export default connect(mapStateToProps)(TabOrder);
+export default connect(mapStateToProps, { clearOrder })(TabOrder);

@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import SplashScreen from './SplashScreen';
 import { createBottomTabNavigator, createSwitchNavigator } from 'react-navigation'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 import { primaryColorGreen, primaryColorRed } from '../styles'
 
@@ -15,6 +14,8 @@ import TabMenu from './TabMenu';
 import TabOrder from './TabOrder';
 import TabHistory from './TabHistory';
 import TabInfo from './TabInfo';
+
+import IconWithNoti from '../components/IconWithNoti'
 
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
@@ -44,22 +45,10 @@ const BottomNavigation = createBottomTabNavigator({
 
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <View>
-          <Icon name={iconName} size={25} color={tintColor} />
-          {routeName === 'Order' &&
-            <View style={{
-              position: 'absolute',
-              right: -15,
-              backgroundColor: primaryColorRed,
-              width: 20,
-              height: 20,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: 'white', fontSize: 12 }}>1</Text>
-            </View>}
-        </View>;
+        return <IconWithNoti
+          iconName={iconName}
+          routeName={routeName}
+          tintColor={tintColor} />
       },
     }),
     tabBarOptions: {
